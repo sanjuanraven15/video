@@ -6,10 +6,30 @@
 <title>Video</title>
 <style>
   html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }
-  iframe { position: fixed; inset: 0; width: 100vw; height: 100vh; border: 0; background: #000; }
+  video, iframe { position: fixed; inset: 0; width: 100vw; height: 100vh; border: 0; background: #000; }
+  video { object-fit: contain; }
 </style>
 </head>
 <body>
-<iframe src="https://drive.google.com/file/d/1tPcQUEvHuzTeDDDpc4h0uN24ylpHeEUK/preview" allow="autoplay; fullscreen" allowfullscreen></iframe>
+<script>
+  var FILE_ID = "1tPcQUEvHuzTeDDDpc4h0uN24ylpHeEUK";
+
+  var v = document.createElement("video");
+  v.src = "https://drive.google.com/uc?export=download&id=" + FILE_ID;
+  v.autoplay = true;
+  v.muted = true;
+  v.loop = true;
+  v.playsInline = true;
+  v.controls = true;
+  v.onerror = function () {
+    v.remove();
+    var f = document.createElement("iframe");
+    f.src = "https://drive.google.com/file/d/" + FILE_ID + "/preview";
+    f.allow = "autoplay; fullscreen";
+    f.allowFullscreen = true;
+    document.body.appendChild(f);
+  };
+  document.body.appendChild(v);
+</script>
 </body>
 </html>
